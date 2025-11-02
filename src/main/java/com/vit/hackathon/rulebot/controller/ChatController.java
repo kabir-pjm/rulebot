@@ -1,49 +1,61 @@
 package com.vit.hackathon.rulebot.controller;
 
+import com.vit.hackathon.rulebot.model.ChatMessage;
 import com.vit.hackathon.rulebot.service.RAGService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+// This tells Spring to store the "chatHistory" object in the user's session
+@SessionAttributes("chatHistory") 
 public class ChatController {
 
-    // This connects our Controller to the "brain"
     @Autowired
     private RAGService ragService;
 
-    /**
-     * This method loads our main chat page.
-     * It maps to the "chat.html" file we will create next.
-     */
-    @GetMapping("/")
-    public String chatPage(Model model) {
-        // We can add "chat history" here later if we have time
-        return "chat"; // This tells Spring to find "chat.html"
+    // This is a helper method to add an object to the session
+    @ModelAttribute("chatHistory")
+    public List<ChatMessage> getChatHistory() {
+        return new ArrayList<>();
     }
 
-    /**
-     * This method handles the user's question.
-     * When the user clicks "Send", the form will POST to this "/ask" URL.
-     */
+    // When the user first lands on the page
+    @GetMapping("/")
+    public String chatPage(@ModelAttribute("chatHistory") List<ChatMessage> chatHistory, Model model) {
+        model.addAttribute("chatHistory", chatHistory);
+        return "chat"; // This maps to "chat.html"
+    }
+
+    // When the user clicks "Send"
     @PostMapping("/ask")
     public String handleAsk(
-            @RequestParam("query") String userQuery, // The user's question from the form
-            Model model // The object to send data back to the HTML
+            @RequestParam("query") String userQuery,
+            // This magic annotation gets the history from the session
+            @ModelAttribute("chatHistory") List<ChatMessage> chatHistory, 
+            Model model
     ) {
-        
-        // 1. Send the question to the "brain" and get an answer
-        String botResponse = ragService.askRuleBot(userQuery);
 
-        // 2. Add the question and answer to the model
-        model.addAttribute("userQuery", userQuery);
-        model.addAttribute("botResponse", botResponse);
+        // 1. Add the user's new question to the history
+        chatHistory.add(new ChatMessage("user", userQuery));
 
-        // 3. Send the user back to the same chat page to see the new answer
+        // 2. Send the *entire* history to the brain
+        String botResponse = ragService.askRuleBot(chatHistory);
+
+        // 3. Add the bot's response to the history
+        chatHistory.add(new ChatMessage("bot", botResponse));
+
+        // 4. Send the updated history back to the HTML page
+        model.addAttribute("chatHistory", chatHistory);
+
         return "chat";
     }
 }
-
