@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SessionAttributes("chatHistory") 
+@SessionAttributes("chatHistory")
 public class ChatController {
 
     @Autowired
@@ -31,8 +33,8 @@ public class ChatController {
     public String chatPage(@ModelAttribute("chatHistory") List<ChatMessage> chatHistory, Model model) {
         model.addAttribute("chatHistory", chatHistory);
         // Add a default selected language for the first page load
-        model.addAttribute("selectedLanguage", "English"); 
-        return "chat"; 
+        model.addAttribute("selectedLanguage", "English");
+        return "chat";
     }
 
     // --- MODIFIED ---
@@ -40,10 +42,9 @@ public class ChatController {
     public String handleAsk(
             @RequestParam("query") String userQuery,
             @RequestParam("language") String language, // <-- NEW: Get language from form
-            @ModelAttribute("chatHistory") List<ChatMessage> chatHistory, 
-            Model model
-    ) {
-        
+            @ModelAttribute("chatHistory") List<ChatMessage> chatHistory,
+            Model model) {
+
         chatHistory.add(new ChatMessage("user", userQuery));
 
         // Pass the new language parameter to the "brain"
@@ -53,7 +54,29 @@ public class ChatController {
 
         model.addAttribute("chatHistory", chatHistory);
         model.addAttribute("selectedLanguage", language); // <-- NEW: Add language back to model
-        
+
         return "chat";
+    }
+
+    @PostMapping("/upload")
+    public String handleUpload(
+            @RequestParam("file") MultipartFile file,
+            @ModelAttribute("chatHistory") List<ChatMessage> chatHistory,
+            RedirectAttributes redirectAttributes,
+            Model model) {
+        try {
+            String result = ragService.uploadPdf(file);
+
+            // Add upload success message to chat history
+            chatHistory.add(new ChatMessage("system", "📄 PDF Upload: " + result));
+
+            redirectAttributes.addFlashAttribute("uploadSuccess", result);
+        } catch (Exception e) {
+            String errorMsg = "Failed to upload PDF: " + e.getMessage();
+            chatHistory.add(new ChatMessage("system", "❌ " + errorMsg));
+            redirectAttributes.addFlashAttribute("uploadError", errorMsg);
+        }
+
+        return "redirect:/";
     }
 }

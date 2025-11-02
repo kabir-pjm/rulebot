@@ -1,64 +1,231 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>RuleBot</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 40px auto; background-color: #f9f9f9; }
-        .chat-container { border: 1px solid #ccc; border-radius: 8px; background-color: #fff; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #333; }
-        .chat-box { height: 400px; overflow-y: auto; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .message { padding: 10px 15px; margin-bottom: 10px; border-radius: 8px; line-height: 1.4; }
-        .user { background-color: #e1f5fe; color: #01579b; }
-        .bot { background-color: #f1f1f1; color: #333; }
-        .message p { margin: 5px 0 0 0; }
-        
-        form { margin-top: 20px; }
-        .lang-selector { margin-bottom: 10px; }
-        .lang-selector label { margin-right: 5px; font-size: 0.9em; color: #555; }
-        .lang-selector select { padding: 5px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.9em; }
-        .input-group { display: flex; }
-        input[type="text"] { flex-grow: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px 0 0 6px; font-size: 1em; }
-        button { padding: 12px 20px; border: none; background-color: #007bff; color: white; border-radius: 0 6px 6px 0; cursor: pointer; font-size: 1em; }
-    </style>
-</head>
-<body>
+    <head>
+        <title>RuleBot</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    Roboto, Helvetica, Arial, sans-serif;
+                max-width: 600px;
+                margin: 40px auto;
+                background-color: #f9f9f9;
+            }
+            .chat-container {
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            h2 {
+                text-align: center;
+                color: #333;
+            }
+            .chat-box {
+                height: 400px;
+                overflow-y: auto;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 10px;
+            }
+            .message {
+                padding: 10px 15px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                line-height: 1.4;
+            }
+            .user {
+                background-color: #e1f5fe;
+                color: #01579b;
+            }
+            .bot {
+                background-color: #f1f1f1;
+                color: #333;
+            }
+            .message p {
+                margin: 5px 0 0 0;
+            }
 
-    <div class="chat-container">
-        <h2>VIT Hackathon RuleBot</h2>
+            form {
+                margin-top: 20px;
+            }
+            .lang-selector {
+                margin-bottom: 10px;
+            }
+            .lang-selector label {
+                margin-right: 5px;
+                font-size: 0.9em;
+                color: #555;
+            }
+            .lang-selector select {
+                padding: 5px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+                font-size: 0.9em;
+            }
+            .input-group {
+                display: flex;
+            }
+            input[type="text"] {
+                flex-grow: 1;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 6px 0 0 6px;
+                font-size: 1em;
+            }
+            button {
+                padding: 12px 20px;
+                border: none;
+                background-color: #007bff;
+                color: white;
+                border-radius: 0 6px 6px 0;
+                cursor: pointer;
+                font-size: 1em;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            .upload-btn {
+                background-color: #28a745;
+            }
+            .upload-btn:hover {
+                background-color: #218838;
+            }
+            .alert {
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 4px;
+            }
+            .alert-success {
+                background: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+            .alert-error {
+                background: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+            .upload-section {
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                border: 2px dashed #dee2e6;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chat-container">
+            <h2>VIT Hackathon RuleBot</h2>
 
-        <div class="chat-box">
-            <div th:if="${#lists.isEmpty(chatHistory)}" class="message bot">
-                <strong>RuleBot:</strong>
-                <p>Welcome! Ask me a question about our business rules.</p>
-            </div>
-            
-            <div th:each="message : ${chatHistory}">
-                <div th:class="${message.role() == 'user' ? 'message user' : 'message bot'}">
-                    <strong th:text="${message.role() == 'user' ? 'You' : 'RuleBot:'}"></strong>
-                    <p th:text="${message.content()}"></p>
+            <div class="chat-box">
+                <div class="upload-section">
+                    <h3>📄 Upload Company Policy Documents</h3>
+                    <p>
+                        Upload PDF files containing company policies and rules
+                        for RuleBot to learn from.
+                    </p>
+
+                    <form
+                        th:action="@{/upload}"
+                        method="post"
+                        enctype="multipart/form-data"
+                    >
+                        <input
+                            type="file"
+                            name="file"
+                            accept=".pdf"
+                            required
+                        />
+                        <button type="submit" class="upload-btn">
+                            Upload PDF
+                        </button>
+                    </form>
+
+                    <!-- Upload Success/Error Messages -->
+                    <div
+                        th:if="${uploadSuccess}"
+                        class="alert alert-success"
+                        th:text="${uploadSuccess}"
+                    ></div>
+                    <div
+                        th:if="${uploadError}"
+                        class="alert alert-error"
+                        th:text="${uploadError}"
+                    ></div>
+                </div>
+                <div
+                    th:if="${#lists.isEmpty(chatHistory)}"
+                    class="message bot"
+                >
+                    <strong>RuleBot:</strong>
+                    <p>Welcome! Ask me a question about our business rules.</p>
+                </div>
+
+                <div th:each="message : ${chatHistory}">
+                    <div
+                        th:class="${message.role() == 'user' ? 'message user' : 'message bot'}"
+                    >
+                        <strong
+                            th:text="${message.role() == 'user' ? 'You' : 'RuleBot:'}"
+                        ></strong>
+                        <p th:text="${message.content()}"></p>
+                    </div>
                 </div>
             </div>
+
+            <form th:action="@{/ask}" method="post">
+                <div class="lang-selector">
+                    <label for="lang-select">Respond in:</label>
+                    <select name="language" id="lang-select">
+                        <option
+                            value="English"
+                            th:selected="${selectedLanguage == 'English'}"
+                        >
+                            English
+                        </option>
+                        <option
+                            value="Hindi"
+                            th:selected="${selectedLanguage == 'Hindi'}"
+                        >
+                            Hindi
+                        </option>
+                        <option
+                            value="Telugu"
+                            th:selected="${selectedLanguage == 'Telugu'}"
+                        >
+                            Telugu
+                        </option>
+                        <option
+                            value="Tamil"
+                            th:selected="${selectedLanguage == 'Tamil'}"
+                        >
+                            Tamil
+                        </option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <input
+                        type="text"
+                        name="query"
+                        placeholder="Type your policy question..."
+                        required
+                    />
+                    <button type="submit">Send</button>
+                </div>
+            </form>
         </div>
+        <script>
+            // Auto-scroll chat to bottom
+            const chatContainer = document.querySelector(".chat-container");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
 
-        <form th:action="@{/ask}" method="post">
-            
-            <div class="lang-selector">
-                <label for="lang-select">Respond in:</label>
-                <select name="language" id="lang-select">
-                    <option value="English" th:selected="${selectedLanguage == 'English'}">English</option>
-                    <option value="Hindi" th:selected="${selectedLanguage == 'Hindi'}">Hindi</option>
-                    <option value="Telugu" th:selected="${selectedLanguage == 'Telugu'}">Telugu</option>
-                    <option value="Tamil" th:selected="${selectedLanguage == 'Tamil'}">Tamil</option>
-                </select>
-            </div>
-            
-            <div class="input-group">
-                <input type="text" name="query" placeholder="Type your policy question..." required>
-                <button type="submit">Send</button>
-            </div>
-        </form>
-
-    </div>
-
-</body>
+            // Auto-hide alerts after 5 seconds
+            setTimeout(() => {
+                const alerts = document.querySelectorAll(".alert");
+                alerts.forEach((alert) => (alert.style.display = "none"));
+            }, 5000);
+        </script>
+    </body>
 </html>
