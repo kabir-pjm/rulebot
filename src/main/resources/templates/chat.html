@@ -11,7 +11,12 @@
         .user { background-color: #e1f5fe; color: #01579b; }
         .bot { background-color: #f1f1f1; color: #333; }
         .message p { margin: 5px 0 0 0; }
-        form { display: flex; margin-top: 20px; }
+        
+        form { margin-top: 20px; }
+        .lang-selector { margin-bottom: 10px; }
+        .lang-selector label { margin-right: 5px; font-size: 0.9em; color: #555; }
+        .lang-selector select { padding: 5px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.9em; }
+        .input-group { display: flex; }
         input[type="text"] { flex-grow: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px 0 0 6px; font-size: 1em; }
         button { padding: 12px 20px; border: none; background-color: #007bff; color: white; border-radius: 0 6px 6px 0; cursor: pointer; font-size: 1em; }
     </style>
@@ -26,9 +31,8 @@
                 <strong>RuleBot:</strong>
                 <p>Welcome! Ask me a question about our business rules.</p>
             </div>
-
+            
             <div th:each="message : ${chatHistory}">
-
                 <div th:class="${message.role() == 'user' ? 'message user' : 'message bot'}">
                     <strong th:text="${message.role() == 'user' ? 'You' : 'RuleBot:'}"></strong>
                     <p th:text="${message.content()}"></p>
@@ -37,8 +41,21 @@
         </div>
 
         <form th:action="@{/ask}" method="post">
-            <input type="text" name="query" placeholder="Type your policy question..." required>
-            <button type="submit">Send</button>
+            
+            <div class="lang-selector">
+                <label for="lang-select">Respond in:</label>
+                <select name="language" id="lang-select">
+                    <option value="English" th:selected="${selectedLanguage == 'English'}">English</option>
+                    <option value="Hindi" th:selected="${selectedLanguage == 'Hindi'}">Hindi</option>
+                    <option value="Telugu" th:selected="${selectedLanguage == 'Telugu'}">Telugu</option>
+                    <option value="Tamil" th:selected="${selectedLanguage == 'Tamil'}">Tamil</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" name="query" placeholder="Type your policy question..." required>
+                <button type="submit">Send</button>
+            </div>
         </form>
 
     </div>

@@ -1,6 +1,6 @@
 package com.vit.hackathon.rulebot.service;
 
-import com.vit.hackathon.rulebot.model.ChatMessage; // Import our new class
+import com.vit.hackathon.rulebot.model.ChatMessage;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -23,13 +23,17 @@ public class RAGService {
     @Autowired
     private VectorStore vectorStore;
 
+    // --- MODIFIED ---
+    // We added a new {language} placeholder
     private final String systemPromptTemplate = """
             You are a helpful 'RuleBot'. Your job is to answer questions about company policies.
             You must answer questions based *only* on the business rules provided in the context.
             If the answer is not in the provided rules, you MUST say:
             "I'm sorry, I don't have information on that topic."
-
+            
             Use the provided chat history to understand the user's follow-up questions.
+            
+            IMPORTANT: You must respond in the following language: {language}
 
             Here are the relevant rules:
             ---
@@ -42,31 +46,31 @@ public class RAGService {
         this.chatClient = chatClientBuilder.build();
     }
 
-    // This is the main change. We now accept the *entire* history.
-    public String askRuleBot(List<ChatMessage> chatHistory) {
-
-        // 1. Get the user's *latest* question
+    // --- MODIFIED ---
+    // The method now accepts the chosen language
+    public String askRuleBot(List<ChatMessage> chatHistory, String language) {
+        
         String userQuery = chatHistory.get(chatHistory.size() - 1).content();
 
-        // 2. Retrieve relevant rules based on that question
         List<Document> relevantDocuments = this.vectorStore.similaritySearch(userQuery);
         String context = relevantDocuments.stream()
                 .map(doc -> doc.getText())
                 .collect(Collectors.joining("\n"));
 
-        // 3. Create the System Message with the rules
+        // --- MODIFIED ---
+        // We now pass both "context" and "language" into the prompt
         SystemPromptTemplate promptTemplate = new SystemPromptTemplate(systemPromptTemplate);
-        Message systemMessage = promptTemplate.createMessage(Map.of("context", context));
-
-        // 4. Convert our simple ChatMessage list into Spring AI's Message list
+        Message systemMessage = promptTemplate.createMessage(Map.of(
+                "context", context,
+                "language", language 
+        ));
+        
         List<Message> allMessages = chatHistory.stream()
-                .map(msg -> (Message) new UserMessage(msg.content())) // We'll treat all as "user" for simplicity
+                .map(msg -> (Message) new UserMessage(msg.content()))
                 .collect(Collectors.toList());
-
-        // 5. Add our system prompt to the *beginning* of the history
+        
         allMessages.add(0, systemMessage); 
 
-        // 6. Send the whole conversation to the AI
         Prompt promptToSend = new Prompt(allMessages);
 
         String aiResponse = chatClient.prompt(promptToSend)

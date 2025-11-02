@@ -15,47 +15,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-// This tells Spring to store the "chatHistory" object in the user's session
 @SessionAttributes("chatHistory") 
 public class ChatController {
 
     @Autowired
     private RAGService ragService;
 
-    // This is a helper method to add an object to the session
     @ModelAttribute("chatHistory")
     public List<ChatMessage> getChatHistory() {
         return new ArrayList<>();
     }
 
-    // When the user first lands on the page
+    // --- MODIFIED ---
     @GetMapping("/")
     public String chatPage(@ModelAttribute("chatHistory") List<ChatMessage> chatHistory, Model model) {
         model.addAttribute("chatHistory", chatHistory);
-        return "chat"; // This maps to "chat.html"
+        // Add a default selected language for the first page load
+        model.addAttribute("selectedLanguage", "English"); 
+        return "chat"; 
     }
 
-    // When the user clicks "Send"
+    // --- MODIFIED ---
     @PostMapping("/ask")
     public String handleAsk(
             @RequestParam("query") String userQuery,
-            // This magic annotation gets the history from the session
+            @RequestParam("language") String language, // <-- NEW: Get language from form
             @ModelAttribute("chatHistory") List<ChatMessage> chatHistory, 
             Model model
     ) {
-
-        // 1. Add the user's new question to the history
+        
         chatHistory.add(new ChatMessage("user", userQuery));
 
-        // 2. Send the *entire* history to the brain
-        String botResponse = ragService.askRuleBot(chatHistory);
+        // Pass the new language parameter to the "brain"
+        String botResponse = ragService.askRuleBot(chatHistory, language); // <-- MODIFIED
 
-        // 3. Add the bot's response to the history
         chatHistory.add(new ChatMessage("bot", botResponse));
 
-        // 4. Send the updated history back to the HTML page
         model.addAttribute("chatHistory", chatHistory);
-
+        model.addAttribute("selectedLanguage", language); // <-- NEW: Add language back to model
+        
         return "chat";
     }
 }
