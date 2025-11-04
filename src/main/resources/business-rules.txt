@@ -12,3 +12,351 @@ Rule-ID: 003
 Topic: Work From Home (WFH)
 Policy: WFH is allowed for a maximum of 2 days per week for eligible staff.
 Details: WFH days must be pre-scheduled and logged in the company portal.
+
+*Rule-ID: 004*
+*Topic:* Attendance Policy
+*Policy:* Employees must clock in and out daily using the official attendance system.
+*Details:* Late arrivals beyond 15 minutes for three consecutive days will trigger a warning.
+
+---
+
+*Rule-ID: 005*
+*Topic:* Internet Usage
+*Policy:* Company internet must be used for work-related activities only.
+*Details:* Streaming non-work-related videos or accessing restricted sites is prohibited.
+
+---
+
+*Rule-ID: 006*
+*Topic:* Dress Code
+*Policy:* Employees are expected to maintain professional attire during working hours.
+*Details:* Casual wear is permitted only on Fridays and approved holidays.
+
+---
+
+*Rule-ID: 007*
+*Topic:* Confidentiality
+*Policy:* Employees must not share company data with unauthorized parties.
+*Details:* Breach of confidentiality may result in termination.
+
+---
+
+*Rule-ID: 008*
+*Topic:* Company Equipment
+*Policy:* All company-issued devices must be used responsibly.
+*Details:* Loss or damage due to negligence must be reimbursed by the employee.
+
+---
+
+*Rule-ID: 009*
+*Topic:* Expense Reimbursement
+*Policy:* Expense claims must be submitted within 30 days of expenditure.
+*Details:* All claims require original receipts and manager approval.
+
+---
+
+*Rule-ID: 010*
+*Topic:* Health and Safety
+*Policy:* Employees must follow all safety guidelines in the workplace.
+*Details:* Unsafe practices must be reported to HR immediately.
+
+---
+
+*Rule-ID: 011*
+*Topic:* Code of Conduct
+*Policy:* Employees must maintain respectful communication at all times.
+*Details:* Harassment or abusive language is strictly prohibited.
+
+---
+
+*Rule-ID: 012*
+*Topic:* IT Security
+*Policy:* Company passwords must be updated every 90 days.
+*Details:* Sharing login credentials is not permitted.
+
+---
+
+*Rule-ID: 013*
+*Topic:* Overtime
+*Policy:* Overtime work requires prior written approval.
+*Details:* Compensatory leave or pay will be provided as per company policy.
+
+---
+
+*Rule-ID: 014*
+*Topic:* Social Media
+*Policy:* Employees must not post confidential company information online.
+*Details:* Personal opinions must not be represented as company views.
+
+---
+
+*Rule-ID: 015*
+*Topic:* ID Badges
+*Policy:* Employees must display their company ID badges within premises.
+*Details:* Lost badges should be reported to the security desk immediately.
+
+---
+
+*Rule-ID: 016*
+*Topic:* Meeting Etiquette
+*Policy:* Employees must join meetings on time and stay engaged.
+*Details:* Cameras should remain on during virtual meetings unless otherwise stated.
+
+---
+
+*Rule-ID: 017*
+*Topic:* Probation Period
+*Policy:* New hires will undergo a 6-month probation period.
+*Details:* Confirmation depends on performance review and manager feedback.
+
+---
+
+*Rule-ID: 018*
+*Topic:* Performance Appraisal
+*Policy:* Appraisals are conducted annually based on key performance indicators (KPIs).
+*Details:* Self-assessment forms must be submitted two weeks before evaluation.
+
+---
+
+*Rule-ID: 019*
+*Topic:* Training & Development
+*Policy:* Employees must complete all mandatory training sessions.
+*Details:* Non-completion can impact annual performance ratings.
+
+---
+
+*Rule-ID: 020*
+*Topic:* Company Property
+*Policy:* Office furniture and assets must not be moved without approval.
+*Details:* Any damage should be reported to the administration team.
+
+---
+
+*Rule-ID: 021*
+*Topic:* Visitors Policy
+*Policy:* Visitors must be signed in and accompanied by an employee.
+*Details:* Unauthorized visitors are not allowed in restricted areas.
+
+---
+
+*Rule-ID: 022*
+*Topic:* Email Usage
+*Policy:* Company email should be used only for professional communication.
+*Details:* Bulk or chain emails are discouraged.
+
+---
+
+*Rule-ID: 023*
+*Topic:* Mobile Phones
+*Policy:* Personal phone use should be limited during working hours.
+*Details:* Phones must be kept on silent mode in meetings.
+
+---
+
+*Rule-ID: 024*
+*Topic:* Smoking Policy
+*Policy:* Smoking is permitted only in designated areas.
+*Details:* Smoking inside office buildings is strictly prohibited.
+
+---
+
+*Rule-ID: 025*
+*Topic:* Data Backup
+*Policy:* Employees must back up important data weekly.
+*Details:* IT department will perform monthly system-wide backups.
+
+---
+
+*Rule-ID: 026*
+*Topic:* Anti-Discrimination
+*Policy:* The company maintains a zero-tolerance policy for discrimination.
+*Details:* All complaints will be investigated confidentially by HR.
+
+---
+
+*Rule-ID: 027*
+*Topic:* Grievance Handling
+*Policy:* Employees can raise grievances via the HR portal.
+*Details:* HR will respond within 7 working days of submission.
+
+---
+
+*Rule-ID: 028*
+*Topic:* Parking Policy
+*Policy:* Parking spaces are allocated based on availability.
+*Details:* Unauthorized parking may lead to revocation of parking privileges.
+
+---
+
+*Rule-ID: 029*
+*Topic:* Work Hours
+*Policy:* Standard work hours are 9:00 AM to 6:00 PM, Monday to Friday.
+*Details:* Flexible hours require manager approval.
+
+---
+
+*Rule-ID: 030*
+*Topic:* Business Trips
+*Policy:* All business trips must be pre-approved by the department head.
+*Details:* Travel advances can be requested up to ₹50,000.
+
+---
+
+*Rule-ID: 031*
+*Topic:* Remote Access
+*Policy:* Remote access to company systems requires VPN authorization.
+*Details:* Unauthorized remote connections are not permitted.
+
+---
+
+*Rule-ID: 032*
+*Topic:* Office Cleanliness
+*Policy:* Employees must maintain cleanliness at their workstations.
+*Details:* Food waste must be disposed of in designated bins only.
+
+---
+
+*Rule-ID: 033*
+*Topic:* Corporate Gifts
+*Policy:* Employees may not accept gifts exceeding ₹5,000 in value.
+*Details:* All gifts must be disclosed to the compliance department.
+
+---
+
+*Rule-ID: 034*
+*Topic:* Intellectual Property
+*Policy:* All work created during employment belongs to the company.
+*Details:* Use of company IP outside the organization requires written consent.
+
+---
+
+*Rule-ID: 035*
+*Topic:* Resource Booking
+*Policy:* Conference rooms must be reserved in advance.
+*Details:* Bookings are auto-cancelled if not used within 15 minutes of start time.
+
+---
+
+*Rule-ID: 036*
+*Topic:* Cybersecurity
+*Policy:* All devices must have company-approved antivirus software installed.
+*Details:* Employees should report phishing emails immediately.
+
+---
+
+*Rule-ID: 037*
+*Topic:* Annual Bonus
+*Policy:* Annual bonuses are performance-based.
+*Details:* Employees on probation are not eligible for bonuses.
+
+---
+
+*Rule-ID: 038*
+*Topic:* Asset Return
+*Policy:* All company assets must be returned upon resignation or termination.
+*Details:* Clearance will not be issued until all assets are returned.
+
+---
+
+*Rule-ID: 039*
+*Topic:* Attendance Correction
+*Policy:* Attendance discrepancies must be reported within 3 working days.
+*Details:* Late correction requests will not be entertained.
+
+---
+
+*Rule-ID: 040*
+*Topic:* Resignation Policy
+*Policy:* Employees must provide a minimum of 30 days’ notice.
+*Details:* Buyout of notice period is subject to management discretion.
+
+---
+
+*Rule-ID: 041*
+*Topic:* Exit Interview
+*Policy:* All departing employees must attend an exit interview.
+*Details:* Feedback collected will be used for organizational improvement.
+
+---
+
+*Rule-ID: 042*
+*Topic:* Payroll Processing
+*Policy:* Salaries are credited on the last working day of each month.
+*Details:* Deductions for absences or late reporting will reflect in the same cycle.
+
+---
+
+*Rule-ID: 043*
+*Topic:* Employee Referral
+*Policy:* Employees are eligible for referral bonuses upon successful hire.
+*Details:* Bonus payout occurs after the referred candidate completes 3 months.
+
+---
+
+*Rule-ID: 044*
+*Topic:* Emergency Evacuation
+*Policy:* Employees must follow the designated evacuation route during drills.
+*Details:* Participation in safety drills is mandatory.
+
+---
+
+*Rule-ID: 045*
+*Topic:* Personal Data
+*Policy:* Employee personal data will be stored securely and used only for HR purposes.
+*Details:* Any data updates must be submitted to HR within 7 days of change.
+
+---
+
+*Rule-ID: 046*
+*Topic:* Volunteer Programs
+*Policy:* Employees are encouraged to participate in CSR initiatives.
+*Details:* Up to 2 paid volunteer days per year are allowed.
+
+---
+
+*Rule-ID: 047*
+*Topic:* Internal Transfers
+*Policy:* Employees may request transfers after 1 year in a department.
+*Details:* Transfers are subject to project and performance requirements.
+
+---
+
+*Rule-ID: 048*
+*Topic:* Procurement Policy
+*Policy:* All purchases must go through the official procurement process.
+*Details:* Direct vendor payments are not permitted without finance approval.
+
+---
+
+*Rule-ID: 049*
+*Topic:* Employee Recognition
+*Policy:* Outstanding employees will be recognized monthly.
+*Details:* Nominations must come from peers or managers.
+
+---
+
+*Rule-ID: 050*
+*Topic:* Cafeteria Usage
+*Policy:* The cafeteria is open from 8 AM to 6 PM.
+*Details:* Employees must clean up after use and avoid food wastage.
+
+---
+
+*Rule-ID: 051*
+*Topic:* Client Communication
+*Policy:* All client communications must use official company channels.
+*Details:* Personal email IDs must not be used for client correspondence.
+
+---
+
+*Rule-ID: 052*
+*Topic:* Internship Policy
+*Policy:* Interns must adhere to all company policies and confidentiality clauses.
+*Details:* Internships will not exceed 6 months.
+
+---
+
+*Rule-ID: 053*
+*Topic:* Office Celebrations
+*Policy:* Celebrations must not disrupt work activities.
+*Details:* Approval from administration is required for any event setup.

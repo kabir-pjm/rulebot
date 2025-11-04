@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 @Service
 public class RAGService {
 
+        @Autowired
+        private SimpleTranslationService ser;
+
         private final ChatClient chatClient;
 
         @Autowired
@@ -42,7 +45,6 @@ public class RAGService {
                         ---
                         {context}
                         ---
-                        IMPORTANT: You must respond in the following language: {language}
                         """;
 
         @Autowired
@@ -61,9 +63,7 @@ public class RAGService {
 
                 SystemPromptTemplate promptTemplate = new SystemPromptTemplate(systemPromptTemplate);
                 Message systemMessage = promptTemplate.createMessage(Map.of(
-                                "context", context,
-                                "language", language));
-                System.out.println(systemMessage);
+                                "context", context));
 
                 List<Message> allMessages = chatHistory.stream()
                                 .map(msg -> (Message) new UserMessage(msg.content()))
@@ -77,7 +77,7 @@ public class RAGService {
                                 .call()
                                 .content();
 
-                return aiResponse;
+                return ser.translateText(aiResponse, language);
         }
 
         public String uploadPdf(MultipartFile file) throws Exception {
